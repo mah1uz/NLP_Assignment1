@@ -35,7 +35,7 @@ print(f"Vocabulary size: {vocab_size}")
 print(f"Total tokens: {total_tokens}")
 
 
-def build_trigram_model(tokens: list[str]) -> dict:
+def build_trigram_model(tokens):
     """Returns trigram_counts[(w1,w2)][next_word] = count."""
 
     trigram_counts = defaultdict(Counter)
@@ -47,9 +47,27 @@ def build_trigram_model(tokens: list[str]) -> dict:
         w3 = tokens[i + 2]  
         trigram_counts[(w1, w2)][w3] += 1
 
-    return  dict(trigram_counts)  # return type is dict
+    return {
+        context: dict(counter)
+        for context,counter  in trigram_counts.items()
+    }
 
 trigram_counts = build_trigram_model(tokens)
 
-print(f"Trigram counts: {len(trigram_counts)}")
+# print(f"Trigram counts: {len(trigram_counts)}")
 # print(f"Trigram counts: {trigram_counts}")
+
+def laplace_smoothing(trigram_counts, vocab_size):
+    smoothed_probs ={}
+    context_denominators= {}
+
+    for context, counters in trigram_counts.items():
+        total_context = sum(counters.values())
+        denominator= total_context + vocab_size
+        context_denominators[context] = denominator
+        smoothed_probs[context] = {}
+        for word, count in counters.items():
+            smoothed_probs[context][word] = (count + 1) / denominator
+        
+    smoothed_probs["context_denominators"] = context_denominators
+    return smoothed_probs  
