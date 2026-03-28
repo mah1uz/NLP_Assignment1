@@ -10,8 +10,10 @@ from collections import defaultdict, Counter
 import random
 
 nltk.download('punkt', quiet=True)
+nltk.download('punkt_tab')
 
 from nltk.tokenize import word_tokenize
+nltk.download('gutenberg')
 from nltk.corpus import gutenberg
 
 
