@@ -54,11 +54,12 @@ print(f"Total tokens: {total_tokens}")
 
 def build_trigram_model(tokens):
 
-    trigram_counts = defaultdict(Counter)
+    trigram_counts = defaultdict(lambda: defaultdict(int))
+
     for i in range(len(tokens) - 2):
-        w1 = tokens[i]        
-        w2 = tokens[i + 1]  
-        w3 = tokens[i + 2]  
+        w1 = tokens[i]
+        w2 = tokens[i + 1]
+        w3 = tokens[i + 2]
         trigram_counts[(w1, w2)][w3] += 1
 
     return {
@@ -136,7 +137,7 @@ print(f"Generated: {generated_text}")
 def compute_perplexity(test_tokens, smoothed_probs, vocab_size):
 
     if len(test_tokens) < 3:
-        return print(f"infinity")
+        return float('inf')
     
     log_sum = 0.0
     N = len(test_tokens) - 2                    
