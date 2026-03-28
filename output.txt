@@ -1,0 +1,15 @@
+=== Preprocessing ===
+Vocabulary size: 16519
+Total tokens: 210500
+=== Text Generation (Laplace Smoothing) ===
+Seed: white whale
+Generated: white whale had been a great fish to swallow up jonah jonah there go flukes was now all alive now i do not know but it was a little in
+=== Perplexity ===
+Test sentence: 'the captain chased the white whale'
+Perplexity: 5412.4639
+
+=== Bonus Question Attempted ===
+Generated (Interpolation): white whale the whale the whale the whale the whale the whale the whale the whale the whale the whale the whale the whale the whale the whale the whale
+Perplexity (Interpolation): 939.8165
+Comparison: Perplexity of after interpolation is much lower than pure Laplace smoothing.
+

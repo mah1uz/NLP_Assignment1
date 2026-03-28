@@ -208,7 +208,7 @@ def build_bigram_model(tokens):
 
 def interpolated_probability(context, word, trigram_probs,
                              bigram_probs, unigram_probs,
-                             vocab_size, lambdas=(0.6, 0.3, 0.1)):
+                             vocab_size, lambdas=(0.7, 0.25, 0.05)):
 
     λ3, λ2, λ1 = lambdas
 
@@ -279,7 +279,8 @@ bigram_counts  = build_bigram_model(tokens)
 
 # === Generate story with interpolation (same seed as Laplace) ===
 seed = ['white', 'whale']                     # you can change to ['the', 'king']
-interpolated_text = generate_text_interpolated(seed, trigram_counts, bigram_counts, unigram_counts,
+interpolated_text = generate_text_interpolated(seed, trigram_counts, 
+                                               bigram_counts, unigram_counts,
                                                vocab, vocab_size, num_words=30) 
     
     
@@ -294,7 +295,8 @@ test_tokens = preprocess(test_sentence)
 
 
 
-def compute_perplexity_interpolated(test_tokens, trigram_probs, bigram_probs, unigram_probs, vocab_size):
+def compute_perplexity_interpolated(test_tokens, trigram_probs, 
+                                    bigram_probs, unigram_probs, vocab_size):
 
     if len(test_tokens) < 3:
         return float('inf')
@@ -322,7 +324,7 @@ interpolated_perplexity = compute_perplexity_interpolated(
 
 
 #printing all
-print("\n=== Bonus (if attempted) ===")
+print("\n=== Bonus Question Attempted ===")
 print(f"Generated (Interpolation): {interpolated_text}")
 print(f"Perplexity (Interpolation): {interpolated_perplexity:.4f}")
-print("Comparison: The interpolated model generates a clean text than pure Laplace smoothing.")
+print("Comparison: Perplexity of after interpolation is much lower than pure Laplace smoothing.")
